@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/ehgns
+    username: root
+    password: ${DB_PASSWORD}
+  jwt:
+    secret: 64461f01e1af406da538b9c48d801ce59142452199ff112fb5404c8e7e98e3ff
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
