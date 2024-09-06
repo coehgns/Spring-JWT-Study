@@ -19,7 +19,6 @@ public class Board {
     @JoinColumn(name = "writer_id", nullable = false)
     private User user;
 
-
     @Column(name = "title", length = 30)
     private String title;
 
