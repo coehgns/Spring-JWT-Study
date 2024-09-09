@@ -1,4 +1,4 @@
-package com.example.springjwt.domain.board.presentation.dto;
+package com.example.springjwt.domain.board.presentation.dto.request;
 
 import lombok.AccessLevel;
 import lombok.Getter;
