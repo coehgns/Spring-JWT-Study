@@ -9,7 +9,9 @@ import lombok.Getter;
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum ErrorCode {
 
-    USER_NOT_FOUND(404, "User not found.");
+    USER_NOT_FOUND(404, "User not found."),
+
+    BOARD_NOT_FOUND(404, "Board not found.");
 
     private final int statusCode;
     private final String message;
