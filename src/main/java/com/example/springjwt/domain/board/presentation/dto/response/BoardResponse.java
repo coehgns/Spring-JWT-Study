@@ -1,4 +1,4 @@
-package com.example.springjwt.domain.board.presentation.response;
+package com.example.springjwt.domain.board.presentation.dto.response;
 
 import com.example.springjwt.domain.board.domain.Board;
 import lombok.AllArgsConstructor;
