@@ -1,8 +1,7 @@
 package com.example.springjwt.domain.board.service;
 
 import com.example.springjwt.domain.board.domain.Board;
-import com.example.springjwt.domain.board.domain.repository.BoardRepository;
-import com.example.springjwt.domain.board.presentation.dto.BoardAddRequest;
+import com.example.springjwt.domain.board.domain.repository.BoardRepository;import com.example.springjwt.domain.board.presentation.dto.request.BoardAddRequest;
 import com.example.springjwt.domain.user.domain.User;
 import com.example.springjwt.domain.user.facade.UserFacade;
 import lombok.RequiredArgsConstructor;
