@@ -15,14 +15,14 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(BusinessException.class)
     public ResponseEntity<ErrorResponse> handleBusinessException(BusinessException e) {
         ErrorCode errorCode = e.getErrorCode();
-        ErrorResponse errorResponse = ErrorResponse.of(errorCode, errorCode.getMessage());
+        ErrorResponse errorResponse = ErrorResponse.of(errorCode, e.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(errorCode.getStatusCode()));
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleException(Exception e) {
         ErrorCode errorCode = ErrorCode.INTERNAL_SERVER_ERROR;
-        ErrorResponse errorResponse = ErrorResponse.of(errorCode, errorCode.getMessage());
+        ErrorResponse errorResponse = ErrorResponse.of(errorCode, e.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
