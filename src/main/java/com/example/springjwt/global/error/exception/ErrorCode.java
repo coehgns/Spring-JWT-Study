@@ -8,12 +8,13 @@ import lombok.Getter;
 @AllArgsConstructor
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum ErrorCode {
+    PASSWORD_MISMATCH(401, "password mismatch"),
+
+    BOARD_AUTHOR_MISMATCH(403, "Board author mismatch"),
 
     USER_NOT_FOUND(404, "User not found."),
 
     BOARD_NOT_FOUND(404, "Board not found."),
-
-    BOARD_AUTHOR_MISMATCH(403, "Board author mismatch"),
 
     INTERNAL_SERVER_ERROR(500, "Internal server error");
 
