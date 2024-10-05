@@ -18,6 +18,14 @@ public class ErrorResponse {
         return ErrorResponse.builder()
                 .message(errorCode.getMessage())
                 .status(errorCode.getStatusCode())
+                .description(errorCode.getMessage())
+                .build();
+    }
+
+    public static ErrorResponse of(int errorCode, String description) {
+        return ErrorResponse.builder()
+                .message(description)
+                .status(errorCode)
                 .description(description)
                 .build();
     }
