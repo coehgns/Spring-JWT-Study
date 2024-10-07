@@ -58,6 +58,7 @@ public class JwtTokenProvider {
         return rfToken;
     }
 
+    // 토큰에 담겨 있는 userId로 SpringSecurity Authentication 정보를 반환하는 메소드
     public Authentication getAuthentication(String token) {
         Claims claims = getClaims(token);
         UserDetails userDetails = customUserDetailsService.loadUserByUsername(claims.getSubject());
@@ -74,6 +75,7 @@ public class JwtTokenProvider {
         }
     }
 
+    // HTTP 요청 헤더에서 토큰을 가져오는 메소드
     public String resolveToken(HttpServletRequest request) {
         String bearerToken = request.getHeader(jwtProperties.getHeader());
 
