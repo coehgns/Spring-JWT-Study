@@ -36,11 +36,11 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    public String createRefreshToken(String accountId) {
+    public String createRefreshToken(String username) {
         Date now = new Date();
 
         String rfToken = Jwts.builder()
-                .setSubject(accountId)
+                .setSubject(username)
                 .claim("type", "refresh")
                 .setIssuedAt(now)
                 .setExpiration(new Date(now.getTime() + jwtProperties.getRefreshExpiration() * 1000))
@@ -49,7 +49,7 @@ public class JwtTokenProvider {
 
         refreshTokenRepository.save(
                 RefreshToken.builder()
-                        .username(accountId)
+                        .username(username)
                         .token(rfToken)
                         .build());
 
