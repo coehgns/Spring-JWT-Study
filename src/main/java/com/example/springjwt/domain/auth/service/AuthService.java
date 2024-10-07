@@ -25,7 +25,7 @@ public class AuthService {
     public void signup(SignupRequest request) {
         userRepository.save(
                 User.builder()
-                        .email(request.getEmail())
+                        .username(request.getUsername())
                         .password(passwordEncoder.encode(request.getPassword()))
                         .build()
         );
@@ -34,16 +34,16 @@ public class AuthService {
     @Transactional
     public TokenResponse login(LoginRequest request) {
 
-        User user = userRepository.findByUsername(request.getEmail())
+        User user = userRepository.findByUsername(request.getUsername())
                 .orElseThrow(() -> UserNotFoundException.EXCEPTION);
 
-        if(!passwordEncoder.matches(request.getEmail(), request.getPassword())) {
+        if(!passwordEncoder.matches(request.getUsername(), request.getPassword())) {
             throw PasswordMismatchException.EXCEPTION;
         }
 
         return TokenResponse.builder()
-                .accessToken(jwtTokenProvider.createAccessToken(request.getEmail()))
-                .refreshToken(jwtTokenProvider.createRefreshToken(request.getEmail()))
+                .accessToken(jwtTokenProvider.createAccessToken(request.getUsername()))
+                .refreshToken(jwtTokenProvider.createRefreshToken(request.getUsername()))
                 .build();
     }
 }
