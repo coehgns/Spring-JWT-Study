@@ -16,15 +16,13 @@ public class JwtFilter extends OncePerRequestFilter {
 
     private final JwtTokenProvider jwtTokenProvider;
 
-    private final JwtResolver jwtResolver;
-
     @Override
     public void doFilterInternal (
             HttpServletRequest request,
             HttpServletResponse response,
             FilterChain filterChain
     ) throws ServletException, IOException {
-        String token = jwtResolver.resolverToken(request);
+        String token = jwtTokenProvider.resolveToken(request);
 
         if(token != null) {
             // token에 대한 정보를 바탕으로 권한을 가지고 있는 authentication 생성
