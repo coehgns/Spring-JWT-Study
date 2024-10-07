@@ -1,6 +1,5 @@
 package com.example.springjwt.global.config;
 
-import com.example.springjwt.global.security.jwt.JwtResolver;
 import com.example.springjwt.global.security.jwt.JwtTokenProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -26,8 +25,6 @@ import java.util.List;
 public class SecurityConfig {
 
     private final JwtTokenProvider jwtTokenProvider;
-
-    private final JwtResolver jwtResolver;
 
     private final ObjectMapper objectMapper;
 
@@ -56,7 +53,7 @@ public class SecurityConfig {
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
-                .with(new FilterConfig(jwtTokenProvider, jwtResolver ,objectMapper), Customizer.withDefaults());
+                .with(new FilterConfig(jwtTokenProvider,objectMapper), Customizer.withDefaults());
 
         return httpSecurity.build();
     }
