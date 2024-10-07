@@ -4,6 +4,7 @@ import com.example.springjwt.domain.auth.presentation.dto.request.LoginRequest;
 import com.example.springjwt.domain.auth.presentation.dto.request.SignupRequest;
 import com.example.springjwt.domain.auth.presentation.dto.response.TokenResponse;
 import com.example.springjwt.domain.auth.service.AuthService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,12 +19,12 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/signup")
-    public void signup(@RequestBody SignupRequest request) {
+    public void signup(@RequestBody @Valid SignupRequest request) {
         authService.signup(request);
     }
 
     @PostMapping("/login")
-    public TokenResponse login(@RequestBody LoginRequest request) {
+    public TokenResponse login(@RequestBody @Valid LoginRequest request) {
         return authService.login(request);
     }
 }
