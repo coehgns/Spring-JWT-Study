@@ -4,7 +4,6 @@ import com.example.springjwt.domain.auth.domain.RefreshToken;
 import com.example.springjwt.domain.auth.domain.repository.RefreshTokenRepository;
 import com.example.springjwt.domain.auth.exception.ExpiredTokenException;
 import com.example.springjwt.domain.auth.exception.InvalidTokenException;
-import com.example.springjwt.domain.user.domain.repository.UserRepository;
 import com.example.springjwt.global.security.auth.CustomUserDetailsService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -22,7 +21,6 @@ import java.util.Date;
 @RequiredArgsConstructor
 public class JwtTokenProvider {
     private final JwtProperties jwtProperties;
-    private final UserRepository userRepository;
     private final RefreshTokenRepository refreshTokenRepository;
     private final CustomUserDetailsService customUserDetailsService;
 
