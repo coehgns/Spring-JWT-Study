@@ -1,13 +1,13 @@
 package com.example.springjwt.global.error;
 
 import com.example.springjwt.global.error.exception.ErrorCode;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 @Getter
 @Builder
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class ErrorResponse {
 
     private String message;
