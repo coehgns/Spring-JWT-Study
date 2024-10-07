@@ -48,7 +48,7 @@ public class SecurityConfig {
                 // http basic 인증 방식 disable
                 .httpBasic(AbstractHttpConfigurer::disable)
 
-                .authorizeHttpRequests(auth -> auth
+                .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/api/auth/**").permitAll()
                         .anyRequest().authenticated())
 
