@@ -41,9 +41,6 @@ public class AuthService {
             throw PasswordMismatchException.EXCEPTION;
         }
 
-        return TokenResponse.builder()
-                .accessToken(jwtTokenProvider.createAccessToken(request.getUsername()))
-                .refreshToken(jwtTokenProvider.createRefreshToken(request.getUsername()))
-                .build();
+        return jwtTokenProvider.receiveToken(request.getUsername());
     }
 }
