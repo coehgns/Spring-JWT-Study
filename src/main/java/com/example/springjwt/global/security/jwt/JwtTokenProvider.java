@@ -5,7 +5,6 @@ import com.example.springjwt.domain.auth.domain.repository.RefreshTokenRepositor
 import com.example.springjwt.domain.auth.exception.ExpiredTokenException;
 import com.example.springjwt.domain.auth.exception.InvalidTokenException;
 import com.example.springjwt.domain.auth.presentation.dto.response.TokenResponse;
-import com.example.springjwt.domain.user.domain.User;
 import com.example.springjwt.global.security.auth.CustomUserDetailsService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
