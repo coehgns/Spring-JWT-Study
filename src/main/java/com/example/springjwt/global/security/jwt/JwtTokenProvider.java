@@ -6,8 +6,6 @@ import com.example.springjwt.domain.auth.exception.ExpiredTokenException;
 import com.example.springjwt.domain.auth.exception.InvalidTokenException;
 import com.example.springjwt.domain.auth.presentation.dto.response.TokenResponse;
 import com.example.springjwt.domain.user.domain.User;
-import com.example.springjwt.domain.user.domain.repository.UserRepository;
-import com.example.springjwt.domain.user.exception.UserNotFoundException;
 import com.example.springjwt.global.security.auth.CustomUserDetailsService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -29,7 +27,6 @@ public class JwtTokenProvider {
     private final JwtProperties jwtProperties;
     private final RefreshTokenRepository refreshTokenRepository;
     private final CustomUserDetailsService customUserDetailsService;
-    private final UserRepository userRepository;
 
     public String createAccessToken(String accountId) {
         Date now = new Date();
@@ -83,9 +80,6 @@ public class JwtTokenProvider {
     public TokenResponse receiveToken(String username) {
 
         Date now = new Date();
-
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> UserNotFoundException.EXCEPTION);
 
          return TokenResponse.builder()
                  .accessToken(createAccessToken(username))
