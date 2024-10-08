@@ -6,6 +6,7 @@ import com.example.springjwt.domain.auth.presentation.dto.request.SignupRequest;
 import com.example.springjwt.domain.auth.presentation.dto.response.TokenResponse;
 import com.example.springjwt.domain.user.domain.User;
 import com.example.springjwt.domain.user.domain.repository.UserRepository;
+import com.example.springjwt.domain.user.exception.UserAlreadyExistException;
 import com.example.springjwt.domain.user.exception.UserNotFoundException;
 import com.example.springjwt.global.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,11 @@ public class AuthService {
 
     @Transactional
     public void signup(SignupRequest request) {
+
+        if(userRepository.existsByUsername(request.getUsername())) {
+            throw UserAlreadyExistException.EXCEPTION;
+        }
+
         userRepository.save(
                 User.builder()
                         .username(request.getUsername())
