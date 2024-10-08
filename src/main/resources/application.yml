@@ -1,20 +1,21 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/ehgns
-    username: root
-    password: ${DB_PASSWORD}
-  jwt:
-    header: Authorization
-    prefix: Bearer
-    secret: "1123456789"
-    accessExpiration: 271000
-    refreshExpiration: 604800
-
+    url: jdbc:mysql://${DB_URL:localhost}:3306/${DB_NAME}?useSSL=false&characterEncoding=UTF-8&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true&tinyInt1isBit=false&rewriteBatchedStatements=true
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:}
   jpa:
-    show-sql: true
     hibernate:
       ddl-auto: update
-    properties:
-      hibernate:
-        format_sql: true
+    properties.hibernate:
+      format_sql: true
+      show_sql: true
+      jdbc:
+        batch_size: 200
+      open-in-view: false
+jwt:
+  header: ${JWT_HEADER:Authorization}
+  prefix: ${JWT_PREFIX:Bearer}
+  secretKey: ${JWT_SECRET}
+  accessExpiration: ${JWT_ACCESS_EXP:3600}
+  refreshExpiration: ${JWT_REFRESH_EXP:3600}
