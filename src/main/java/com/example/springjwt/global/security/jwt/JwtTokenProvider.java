@@ -4,6 +4,10 @@ import com.example.springjwt.domain.auth.domain.RefreshToken;
 import com.example.springjwt.domain.auth.domain.repository.RefreshTokenRepository;
 import com.example.springjwt.domain.auth.exception.ExpiredTokenException;
 import com.example.springjwt.domain.auth.exception.InvalidTokenException;
+import com.example.springjwt.domain.auth.presentation.dto.response.TokenResponse;
+import com.example.springjwt.domain.user.domain.User;
+import com.example.springjwt.domain.user.domain.repository.UserRepository;
+import com.example.springjwt.domain.user.exception.UserNotFoundException;
 import com.example.springjwt.global.security.auth.CustomUserDetailsService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -25,6 +29,7 @@ public class JwtTokenProvider {
     private final JwtProperties jwtProperties;
     private final RefreshTokenRepository refreshTokenRepository;
     private final CustomUserDetailsService customUserDetailsService;
+    private final UserRepository userRepository;
 
     public String createAccessToken(String accountId) {
         Date now = new Date();
@@ -73,6 +78,21 @@ public class JwtTokenProvider {
         } catch (Exception e) {
             throw InvalidTokenException.EXCEPTION;
         }
+    }
+
+    public TokenResponse receiveToken(String username) {
+
+        Date now = new Date();
+
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> UserNotFoundException.EXCEPTION);
+
+         return TokenResponse.builder()
+                 .accessToken(createAccessToken(username))
+                 .refreshToken(createRefreshToken(username))
+                 .accessExpiredAt(new Date(now.getTime() + jwtProperties.getAccessExpiration()))
+                 .refreshExpiredAt(new Date(now.getTime() + jwtProperties.getRefreshExpiration()))
+                 .build();
     }
 
     // HTTP 요청 헤더에서 토큰을 가져오는 메소드
