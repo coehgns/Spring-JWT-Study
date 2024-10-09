@@ -22,6 +22,7 @@ public class AddBoardService {
                         .title(request.getTitle())
                         .content(request.getContent())
                         .user(currentUser)
+                        .author(currentUser.getUsername())
                         .build()
         );
     }
