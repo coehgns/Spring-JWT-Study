@@ -27,6 +27,6 @@ public class ModifyBoardService {
 
         boardFacade.authorCheck(currentUser, board);
 
-        board.modifyBoard(board.getTitle(), board.getContent());
+        board.modifyBoard(request.getTitle(), request.getContent());
     }
 }
