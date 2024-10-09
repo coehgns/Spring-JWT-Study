@@ -10,14 +10,14 @@ import lombok.Getter;
 @AllArgsConstructor
 public class BoardResponse {
 
-    private String username;
+    private String author;
 
     private String title;
 
     private String content;
 
     public BoardResponse(Board board) {
-        username = board.getUser().getUsername();
+        author = board.getAuthor();
         title = board.getTitle();
         content = board.getContent();
     }
