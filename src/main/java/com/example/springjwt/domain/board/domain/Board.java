@@ -25,6 +25,9 @@ public class Board {
     @Column(name = "content", length = 255)
     private String content;
 
+    @Column(name = "author")
+    private String author;
+
     public void modifyBoard(String title, String content) {
         this.title = title;
         this.content = content;
