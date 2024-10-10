@@ -49,4 +49,8 @@ public class AuthService {
 
         return jwtTokenProvider.receiveToken(request.getUsername());
     }
+
+    public TokenResponse reissue(String token) {
+        return jwtTokenProvider.reissue(token);
+    }
 }
