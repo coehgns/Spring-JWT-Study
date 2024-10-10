@@ -5,6 +5,7 @@ import com.example.springjwt.domain.auth.domain.repository.RefreshTokenRepositor
 import com.example.springjwt.domain.auth.exception.ExpiredTokenException;
 import com.example.springjwt.domain.auth.exception.InvalidTokenException;
 import com.example.springjwt.domain.auth.presentation.dto.response.TokenResponse;
+import com.example.springjwt.domain.user.domain.repository.UserRepository;
 import com.example.springjwt.global.security.auth.CustomUserDetailsService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -26,6 +27,7 @@ public class JwtTokenProvider {
     private final JwtProperties jwtProperties;
     private final RefreshTokenRepository refreshTokenRepository;
     private final CustomUserDetailsService customUserDetailsService;
+    private final UserRepository userRepository;
 
     public String createAccessToken(String accountId) {
         Date now = new Date();
@@ -96,6 +98,26 @@ public class JwtTokenProvider {
             return bearerToken.substring(7);
         }
         return null;
+    }
+
+    public TokenResponse reissue(String rfToken) {
+
+        RefreshToken token = refreshTokenRepository.findByToken(rfToken)
+                .orElseThrow(() -> InvalidTokenException.EXCEPTION);
+
+        String accountId = userRepository.findByUsername(token.getUsername())
+                .orElseThrow(() -> InvalidTokenException.EXCEPTION).getUsername();
+
+        refreshTokenRepository.delete(token);
+
+        Date now = new Date();
+
+        return TokenResponse.builder()
+                .accessToken(createAccessToken(accountId))
+                .refreshToken(createRefreshToken(accountId))
+                .accessExpiredAt(new Date(now.getTime() + jwtProperties.getAccessExpiration()))
+                .refreshExpiredAt(new Date(now.getTime() + jwtProperties.getRefreshExpiration()))
+                .build();
     }
 
 }
