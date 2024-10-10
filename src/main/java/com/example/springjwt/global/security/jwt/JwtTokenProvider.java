@@ -13,6 +13,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.mustache.MustacheAutoConfiguration;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,16 +30,16 @@ public class JwtTokenProvider {
     private final CustomUserDetailsService customUserDetailsService;
     private final UserRepository userRepository;
 
-    public TokenResponse createToken(String username) {
+    public TokenResponse createToken(String accountId) {
 
         Date now = new Date();
 
-        String accessToken = createAccessToken(username);
-        String refreshToken = createRefreshToken(username);
+        String accessToken = createAccessToken(accountId);
+        String refreshToken = createRefreshToken(accountId);
 
         refreshTokenRepository.save(
                 RefreshToken.builder()
-                        .username(username)
+                        .accountId(accountId)
                         .token(refreshToken)
                         .build()
         );
@@ -51,11 +52,11 @@ public class JwtTokenProvider {
                 .build();
     }
 
-    public String createAccessToken(String username) {
+    public String createAccessToken(String accountId) {
         Date now = new Date();
 
         return Jwts.builder()
-                .setSubject(username)
+                .setSubject(accountId)
                 .claim("type", "access")
                 .setIssuedAt(now)
                 .setExpiration(new Date(now.getTime() + jwtProperties.getAccessExpiration() * 1000))
@@ -63,11 +64,11 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    public String createRefreshToken(String username) {
+    public String createRefreshToken(String accountId) {
         Date now = new Date();
 
         String rfToken = Jwts.builder()
-                .setSubject(username)
+                .setSubject(accountId)
                 .claim("type", "refresh")
                 .setIssuedAt(now)
                 .setExpiration(new Date(now.getTime() + jwtProperties.getRefreshExpiration() * 1000))
@@ -94,11 +95,11 @@ public class JwtTokenProvider {
         }
     }
 
-    public TokenResponse receiveToken(String username) {
+    public TokenResponse receiveToken(String accountId) {
 
         Date now = new Date();
 
-         return createToken(username);
+         return createToken(accountId);
     }
 
     // HTTP 요청 헤더에서 토큰을 가져오는 메소드
@@ -117,7 +118,7 @@ public class JwtTokenProvider {
         RefreshToken token = refreshTokenRepository.findByToken(rfToken)
                 .orElseThrow(() -> InvalidTokenException.EXCEPTION);
 
-        String accountId = userRepository.findByUsername(token.getUsername())
+        String accountId = userRepository.findByUsername(token.getAccountId())
                 .orElseThrow(() -> InvalidTokenException.EXCEPTION).getUsername();
 
         refreshTokenRepository.delete(token);
