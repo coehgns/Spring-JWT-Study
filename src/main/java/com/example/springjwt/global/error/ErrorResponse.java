@@ -22,12 +22,4 @@ public class ErrorResponse {
                 .build();
     }
 
-    public static ErrorResponse of(int errorCode, String description) {
-        return ErrorResponse.builder()
-                .message(description)
-                .status(errorCode)
-                .description(description)
-                .build();
-    }
-
 }
