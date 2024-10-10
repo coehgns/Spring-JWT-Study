@@ -29,11 +29,33 @@ public class JwtTokenProvider {
     private final CustomUserDetailsService customUserDetailsService;
     private final UserRepository userRepository;
 
-    public String createAccessToken(String accountId) {
+    public TokenResponse createToken(String username) {
+
+        Date now = new Date();
+
+        String accessToken = createAccessToken(username);
+        String refreshToken = createRefreshToken(username);
+
+        refreshTokenRepository.save(
+                RefreshToken.builder()
+                        .username(username)
+                        .token(refreshToken)
+                        .build()
+        );
+
+        return TokenResponse.builder()
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
+                .accessExpiredAt(new Date(now.getTime() + jwtProperties.getAccessExpiration()))
+                .refreshExpiredAt(new Date(now.getTime() + jwtProperties.getRefreshExpiration()))
+                .build();
+    }
+
+    public String createAccessToken(String username) {
         Date now = new Date();
 
         return Jwts.builder()
-                .setSubject(accountId)
+                .setSubject(username)
                 .claim("type", "access")
                 .setIssuedAt(now)
                 .setExpiration(new Date(now.getTime() + jwtProperties.getAccessExpiration() * 1000))
@@ -51,12 +73,6 @@ public class JwtTokenProvider {
                 .setExpiration(new Date(now.getTime() + jwtProperties.getRefreshExpiration() * 1000))
                 .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecretKey())
                 .compact();
-
-        refreshTokenRepository.save(
-                RefreshToken.builder()
-                        .username(username)
-                        .token(rfToken)
-                        .build());
 
         return rfToken;
     }
@@ -82,12 +98,7 @@ public class JwtTokenProvider {
 
         Date now = new Date();
 
-         return TokenResponse.builder()
-                 .accessToken(createAccessToken(username))
-                 .refreshToken(createRefreshToken(username))
-                 .accessExpiredAt(new Date(now.getTime() + jwtProperties.getAccessExpiration()))
-                 .refreshExpiredAt(new Date(now.getTime() + jwtProperties.getRefreshExpiration()))
-                 .build();
+         return createToken(username);
     }
 
     // HTTP 요청 헤더에서 토큰을 가져오는 메소드
