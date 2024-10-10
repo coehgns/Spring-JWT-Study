@@ -111,6 +111,7 @@ public class JwtTokenProvider {
         return null;
     }
 
+    // refreshToken을 통해 accessToken 재발급받는 메소드
     public TokenResponse reissue(String rfToken) {
 
         RefreshToken token = refreshTokenRepository.findByToken(rfToken)
