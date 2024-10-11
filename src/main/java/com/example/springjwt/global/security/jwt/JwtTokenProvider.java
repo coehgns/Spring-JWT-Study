@@ -41,6 +41,7 @@ public class JwtTokenProvider {
                 RefreshToken.builder()
                         .accountId(accountId)
                         .token(refreshToken)
+                        .ttl(jwtProperties.getRefreshExpiration())
                         .build()
         );
 
