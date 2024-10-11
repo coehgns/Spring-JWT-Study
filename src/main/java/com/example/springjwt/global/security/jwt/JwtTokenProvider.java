@@ -97,8 +97,6 @@ public class JwtTokenProvider {
 
     public TokenResponse receiveToken(String accountId) {
 
-        Date now = new Date();
-
          return createToken(accountId);
     }
 
