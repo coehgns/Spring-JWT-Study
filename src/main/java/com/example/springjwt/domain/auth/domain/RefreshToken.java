@@ -1,16 +1,13 @@
 package com.example.springjwt.domain.auth.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.data.redis.core.RedisHash;
+import org.springframework.data.redis.core.TimeToLive;
 
-@Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Builder
+@RedisHash(timeToLive = 60 * 60 * 120)
 public class RefreshToken {
 
     @Id
