@@ -11,7 +11,7 @@ import java.util.Collections;
 
 public record CustomUserDetails(User user) implements UserDetails {
 
-    public Collection<? extends GrantedAuthority> getAuthorities() {
+    public Collection<GrantedAuthority> getAuthorities() {
         return new ArrayList<>(Collections.singleton(new SimpleGrantedAuthority(user.getUsername())));
     }
 
