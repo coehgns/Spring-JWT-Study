@@ -10,8 +10,7 @@ import org.springframework.data.redis.core.RedisHash;
 public class RefreshToken {
 
     @Id
-    @Column(name = "account_id")
-    private String accountId;
+    private final String accountId;
 
     @Column(name = "token")
     private String token;
