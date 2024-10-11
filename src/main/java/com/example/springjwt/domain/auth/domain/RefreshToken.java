@@ -3,7 +3,6 @@ package com.example.springjwt.domain.auth.domain;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.redis.core.RedisHash;
-import org.springframework.data.redis.core.TimeToLive;
 
 @Getter
 @Builder
