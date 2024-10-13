@@ -13,34 +13,30 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BoardController {
 
-    private final AddBoardService addBoardService;
-    private final DeleteBoardService deleteBoardService;
-    private final ModifyBoardService modifyBoardService;
-    private final SelectBoardService selectBoardService;
-    private final SelectAllBoardService selectAllBoardService;
+    private final BoardService boardService;
 
     @PostMapping
     public void addBoard(@RequestBody BoardRequest request) {
-        addBoardService.execute(request);
+        boardService.addBoard(request);
     }
 
     @DeleteMapping("/{boardId}")
     public void deleteBoard(@PathVariable Long boardId) {
-        deleteBoardService.execute(boardId);
+        boardService.deleteBoard(boardId);
     }
 
     @PatchMapping("/{boardId}")
     public void modifyBoard(@PathVariable Long boardId, BoardRequest request) {
-        modifyBoardService.execute(boardId, request);
+        boardService.modifyBoard(boardId, request);
     }
 
     @GetMapping("/{boardId}")
     public BoardResponse selectBoard(@PathVariable Long boardId) {
-        return selectBoardService.execute(boardId);
+        return boardService.selectBoard(boardId);
     }
 
     @GetMapping("/allBoard")
     public List<BoardResponse> selectAllBoard() {
-        return selectAllBoardService.execute();
+        return boardService.selectAllBoard();
     }
 }
