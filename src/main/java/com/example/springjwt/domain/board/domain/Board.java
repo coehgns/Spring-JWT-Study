@@ -4,6 +4,9 @@ import com.example.springjwt.domain.user.domain.User;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -27,6 +30,9 @@ public class Board {
 
     @Column(name = "author")
     private String author;
+
+    @OneToMany(mappedBy = "board")
+    private List<BoardComment> boardCommentList = new ArrayList<>();
 
     public void modifyBoard(String title, String content) {
         this.title = title;
