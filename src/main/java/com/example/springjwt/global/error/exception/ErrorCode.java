@@ -16,6 +16,8 @@ public enum ErrorCode {
 
     BOARD_AUTHOR_MISMATCH(403, "Board author mismatch"),
 
+    BOARD_COMMENT_AUTHOR_MISMATCH(403, "Board comment author mismatch"),
+
     USER_NOT_FOUND(404, "User not found."),
 
     BOARD_COMMENT_NOT_FOUND(404, "Board Comment not found."),
