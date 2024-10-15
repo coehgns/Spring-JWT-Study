@@ -24,6 +24,6 @@ public class BoardComment {
     @JoinColumn(name = "board_id")
     private Board board;
 
-    @Column(name = "writer")
-    private String writer;
+    @Column(name = "author")
+    private String author;
 }
