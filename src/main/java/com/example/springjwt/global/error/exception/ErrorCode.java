@@ -18,6 +18,8 @@ public enum ErrorCode {
 
     USER_NOT_FOUND(404, "User not found."),
 
+    BOARD_COMMENT_NOT_FOUND(404, "Board Comment not found."),
+
     BOARD_NOT_FOUND(404, "Board not found."),
 
     USER_ALREADY_EXISTS(409, "User Already Exists"),
