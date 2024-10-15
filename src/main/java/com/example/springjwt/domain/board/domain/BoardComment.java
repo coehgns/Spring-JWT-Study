@@ -26,4 +26,8 @@ public class BoardComment {
 
     @Column(name = "author")
     private String author;
+
+    public void updateBoardComment(String content) {
+        this.content = content;
+    }
 }
