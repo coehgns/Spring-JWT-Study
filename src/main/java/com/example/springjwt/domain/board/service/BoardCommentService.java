@@ -7,7 +7,8 @@ import com.example.springjwt.domain.board.domain.repository.BoardRepository;
 import com.example.springjwt.domain.board.exception.BoardCommentAuthorMissmatchException;
 import com.example.springjwt.domain.board.exception.BoardCommentNotFoundException;
 import com.example.springjwt.domain.board.exception.BoardNotFoundException;
-import com.example.springjwt.domain.board.presentation.dto.request.BoardCommentRequest;
+import com.example.springjwt.domain.board.presentation.dto.request.BoardCommentCreateRequest;
+import com.example.springjwt.domain.board.presentation.dto.request.BoardCommentUpdateRequest;
 import com.example.springjwt.domain.user.facade.UserFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,7 @@ public class BoardCommentService {
     private final BoardRepository boardRepository;
     private final UserFacade userFacade;
 
-    public void addBoardComment(BoardCommentRequest request) {
+    public void addBoardComment(BoardCommentCreateRequest request) {
 
         Board board = boardRepository.findById(request.getBoardId())
                 .orElseThrow(() -> BoardNotFoundException.EXCEPTION);
@@ -48,7 +49,7 @@ public class BoardCommentService {
     }
 
     @Transactional
-    public void modifyBoardComment(Long boardCommentId, String content) {
+    public void modifyBoardComment(Long boardCommentId, BoardCommentUpdateRequest request) {
 
         BoardComment boardComment = boardCommentRepository.findById(boardCommentId)
                 .orElseThrow(() -> BoardCommentNotFoundException.EXCEPTION);
@@ -57,6 +58,6 @@ public class BoardCommentService {
             throw BoardCommentAuthorMissmatchException.EXCEPTION;
         }
 
-        boardComment.updateBoardComment(content);
+        boardComment.updateBoardComment(request.getContent());
     }
 }

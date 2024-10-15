@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class BoardCommentRequest {
+public class BoardCommentCreateRequest {
     private Long boardId;
     private String content;
 }

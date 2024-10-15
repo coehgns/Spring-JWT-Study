@@ -1,6 +1,7 @@
 package com.example.springjwt.domain.board.presentation;
 
-import com.example.springjwt.domain.board.presentation.dto.request.BoardRequest;
+import com.example.springjwt.domain.board.presentation.dto.request.BoardCreateRequest;
+import com.example.springjwt.domain.board.presentation.dto.request.BoardUpdateRequest;
 import com.example.springjwt.domain.board.presentation.dto.response.BoardResponse;
 import com.example.springjwt.domain.board.service.*;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,7 @@ public class BoardController {
     private final BoardService boardService;
 
     @PostMapping
-    public void addBoard(@RequestBody BoardRequest request) {
+    public void addBoard(@RequestBody BoardCreateRequest request) {
         boardService.addBoard(request);
     }
 
@@ -26,7 +27,7 @@ public class BoardController {
     }
 
     @PatchMapping("/{boardId}")
-    public void modifyBoard(@PathVariable Long boardId, BoardRequest request) {
+    public void modifyBoard(@PathVariable Long boardId, BoardUpdateRequest request) {
         boardService.modifyBoard(boardId, request);
     }
 
