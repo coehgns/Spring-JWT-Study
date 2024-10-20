@@ -9,8 +9,6 @@ import java.util.List;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
-@Builder
 @Getter
 public class Board {
 
@@ -37,5 +35,13 @@ public class Board {
     public void modifyBoard(String title, String content) {
         this.title = title;
         this.content = content;
+    }
+
+    @Builder
+    public Board(String title, String content, User user, String author) {
+        this.title = title;
+        this.content = content;
+        this.user = user;
+        this.author = author;
     }
 }
