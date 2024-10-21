@@ -4,7 +4,6 @@ import com.example.springjwt.domain.board.domain.Board;
 import com.example.springjwt.domain.board.domain.repository.BoardRepository;
 import com.example.springjwt.domain.board.exception.BoardAuthorMismatchException;
 import com.example.springjwt.domain.board.exception.BoardNotFoundException;
-import com.example.springjwt.domain.board.facade.BoardFacade;
 import com.example.springjwt.domain.board.presentation.dto.request.BoardCreateRequest;
 import com.example.springjwt.domain.board.presentation.dto.request.BoardUpdateRequest;
 import com.example.springjwt.domain.board.presentation.dto.response.BoardResponse;
@@ -23,7 +22,6 @@ public class BoardService {
 
     private final BoardRepository boardRepository;
     private final UserFacade userFacade;
-    private final BoardFacade boardFacade;
 
     public void addBoard(BoardCreateRequest request) {
 
