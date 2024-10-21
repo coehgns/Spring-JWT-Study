@@ -18,11 +18,13 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class BoardService {
 
     private final BoardRepository boardRepository;
     private final UserFacade userFacade;
 
+    @Transactional
     public void addBoard(BoardCreateRequest request) {
 
         User currentUser = userFacade.currentUser();
@@ -37,6 +39,7 @@ public class BoardService {
         );
     }
 
+    @Transactional
     public void deleteBoard(Long boardId) {
 
         Board board = boardRepository.findById(boardId)
@@ -71,6 +74,7 @@ public class BoardService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     public BoardResponse selectBoard(Long boardId) {
         Board board  = boardRepository.findById(boardId)
                 .orElseThrow(() -> BoardNotFoundException.EXCEPTION);
