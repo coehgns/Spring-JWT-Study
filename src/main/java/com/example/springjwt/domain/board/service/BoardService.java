@@ -55,10 +55,13 @@ public class BoardService {
     public void modifyBoard(Long boardId, BoardUpdateRequest request) {
 
         User currentUser = userFacade.currentUser();
+
         Board board = boardRepository.findById(boardId)
                 .orElseThrow(() -> BoardNotFoundException.EXCEPTION);
 
-        boardFacade.authorCheck(currentUser, board);
+        if(currentUser.equals(board.getUser())) {
+            throw BoardAuthorMismatchException.EXCEPTION;
+        }
 
         board.modifyBoard(request.getTitle(), request.getContent());
     }
