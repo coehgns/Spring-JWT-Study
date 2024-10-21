@@ -2,6 +2,7 @@ package com.example.springjwt.domain.board.service;
 
 import com.example.springjwt.domain.board.domain.Board;
 import com.example.springjwt.domain.board.domain.repository.BoardRepository;
+import com.example.springjwt.domain.board.exception.BoardAuthorMismatchException;
 import com.example.springjwt.domain.board.exception.BoardNotFoundException;
 import com.example.springjwt.domain.board.facade.BoardFacade;
 import com.example.springjwt.domain.board.presentation.dto.request.BoardCreateRequest;
@@ -25,6 +26,7 @@ public class BoardService {
     private final BoardFacade boardFacade;
 
     public void addBoard(BoardCreateRequest request) {
+
         User currentUser = userFacade.currentUser();
 
         boardRepository.save(
@@ -38,17 +40,20 @@ public class BoardService {
     }
 
     public void deleteBoard(Long boardId) {
-        User currentUser = userFacade.currentUser();
+
         Board board = boardRepository.findById(boardId)
                 .orElseThrow(() -> BoardNotFoundException.EXCEPTION);
 
-        boardFacade.authorCheck(currentUser, board);
+        if(!userFacade.currentUser().equals(board.getUser())) {
+            throw BoardAuthorMismatchException.EXCEPTION;
+        }
 
         boardRepository.deleteById(boardId);
     }
 
     @Transactional
     public void modifyBoard(Long boardId, BoardUpdateRequest request) {
+
         User currentUser = userFacade.currentUser();
         Board board = boardRepository.findById(boardId)
                 .orElseThrow(() -> BoardNotFoundException.EXCEPTION);
