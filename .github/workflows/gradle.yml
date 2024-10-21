@@ -1,11 +1,11 @@
-name: Gradle with Docker CI/CD
+name: Java CI with Gradle
 
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-
+    
 jobs:
   build:
 
@@ -28,9 +28,3 @@ jobs:
       run: |
         chmod +x ./gradlew
         ./gradlew build
-
-    - name: Docker Build & Push to docker repo
-      run: |
-        docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}  
-        docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/spring-board-service .
-        docker push ${{ secrets.DOCKERHUB_USERNAME }}/spring-board-service
