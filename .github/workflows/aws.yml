@@ -27,7 +27,7 @@ jobs:
 
     - name: Deploy to AWS EC2
       run: |
-          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{ DCOKERHUB_REPO }}:latest
-          docker stop ${{ DCOKERHUB_REPO }} || true
-          docker rm ${{ DOCKERHUB_REPO }} || true
-          docker run -d --name ${{ DOCKERHUB_REPO }} -p 80:8080 ${{ secrets.DOCKERHUB_USERNAME }}/${{ DOCKERHUB_REPO }}:latest
+          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DCOKERHUB_REPO }}:latest
+          docker stop ${{ secrets.DCOKERHUB_REPO }} || true
+          docker rm ${{ secrets.DOCKERHUB_REPO }} || true
+          docker run -d --name ${{ secrets.DOCKERHUB_REPO }} -p 80:8080 ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }}:latest
