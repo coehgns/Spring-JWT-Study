@@ -17,8 +17,8 @@ jobs:
         
     - name: Docker Build & Push to DockerHub repo
       run: |  
-        docker build -t spring-board-service-f ./Dockerfile .
-        docker push ${{ secrets.DOCKERHUB_USERNAME }}/spring-board-service
+        docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }} .
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }}
     
     - name: Setup SSH
       uses: webfactory/ssh-agent@v0.5.3
@@ -27,7 +27,7 @@ jobs:
 
     - name: Deploy to AWS EC2
       run: |
-          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/spring-board-service:latest
-          docker stop spring-board-service || true
-          docker rm spring-board-service || true
-          docker run -d --name spring-board-service -p 80:8080 ${{ secrets.DOCKERHUB_USERNAME }}/spring-board-service:latest
+          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{ DCOKERHUB_REPO }}:latest
+          docker stop ${{ DCOKERHUB_REPO }} || true
+          docker rm ${{ DOCKERHUB_REPO }} || true
+          docker run -d --name ${{ DOCKERHUB_REPO }} -p 80:8080 ${{ secrets.DOCKERHUB_USERNAME }}/${{ DOCKERHUB_REPO }}:latest
