@@ -11,9 +11,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Docker Build & Push to docker repo
+    - name: Login to DockerHub
       run: |
-        docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}  
+        docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
+        
+    - name: Docker Build & Push to DockerHub repo
+      run: |  
         docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/spring-board-service .
         docker push ${{ secrets.DOCKERHUB_USERNAME }}/spring-board-service
     
