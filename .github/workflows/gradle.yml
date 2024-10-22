@@ -35,16 +35,19 @@ jobs:
         docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }} .
         docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }}
 
+  deploy:
+    needs: build
+    runs-on: ubuntu:latest
+
+    steps:
     - name: Deploy AWS EC2
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.EC2_HOST }}
         username: ${{ secrets.EC2_USERNAME }}
         key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
-        port: ${{ secrets.EC2_SSH_PORT }}
-
         script: |
+          sudo docker rm -f $(docker ps -pa)
           docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }}:latest
-          docker stop ${{ secrets.DOCKERHUB_REPO }} || true
-          docker rm ${{ secrets.DOCKERHUB_REPO }} || true
-          docker run -d --name ${{ secrets.DOCKERHUB_REPO }} -p 80:8080 ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }}:latest
+          docker-compose up -d
+          docker image prune -f
