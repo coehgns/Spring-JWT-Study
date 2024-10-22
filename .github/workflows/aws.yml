@@ -17,7 +17,7 @@ jobs:
         
     - name: Docker Build & Push to DockerHub repo
       run: |  
-        docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/spring-board-service .
+        docker build -t spring-board-service-f ./Dockerfile .
         docker push ${{ secrets.DOCKERHUB_USERNAME }}/spring-board-service
     
     - name: Setup SSH
