@@ -1,7 +1,6 @@
 package com.example.springjwt.domain.email.domain;
 
 import jakarta.persistence.*;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -9,7 +8,6 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
-@Builder
 @RequiredArgsConstructor
 public class EmailVerification {
 
