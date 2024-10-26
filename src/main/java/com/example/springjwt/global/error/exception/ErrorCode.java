@@ -8,6 +8,8 @@ import lombok.Getter;
 @AllArgsConstructor
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum ErrorCode {
+    EMAIL_NOT_VERIFIED(400, "email not verified"),
+
     EXPIRED_TOKEN(401, "expired token"),
 
     INVALID_TOKEN(401, "invalid token"),
