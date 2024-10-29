@@ -11,7 +11,7 @@ public class EmailService {
 
     private final JavaMailSender mailSender;
 
-    public void sendMail(String to, String authCode) {
+    public void sendEmail(String to, String authCode) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(to);
         message.setSubject("Email Verification Code");
