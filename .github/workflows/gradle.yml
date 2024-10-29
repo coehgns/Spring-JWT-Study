@@ -1,4 +1,4 @@
-name: Spring Boot & Gradle CI/CD
+name: Spring Boot with Gradle & Docker CI/CD
 
 on:
   push:
