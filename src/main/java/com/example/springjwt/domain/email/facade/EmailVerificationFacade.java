@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 public class EmailVerificationFacade {
     private final EmailVerificationRepository emailVerificationRepository;
 
-    private EmailVerification getEmailVerificationByEmail(String email) {
+    public EmailVerification getEmailVerificationByEmail(String email) {
         return emailVerificationRepository.findByEmail(email)
                 .orElseThrow(() -> EmailNotVerifiedException.EXCEPTION);
     }
