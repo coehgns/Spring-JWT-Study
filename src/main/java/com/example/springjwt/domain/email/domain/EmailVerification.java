@@ -26,4 +26,8 @@ public class EmailVerification {
 
     @Column(nullable = false)
     private LocalDateTime createdAt;
+
+    public void verify() {
+        this.isVerified = true;
+    }
 }
