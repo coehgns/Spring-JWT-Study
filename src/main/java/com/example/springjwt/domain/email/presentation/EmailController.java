@@ -19,7 +19,7 @@ public class EmailController {
     private final CheckAuthCodeService checkAuthCodeService;
     private final SendAuthCodeService sendAuthCodeService;
 
-    @PostMapping("send-authCode")
+    @PostMapping("/send-authCode")
     public void sendAuthCode(@RequestBody SendEmailRequest request) {
         sendAuthCodeService.execute(request);
     }
