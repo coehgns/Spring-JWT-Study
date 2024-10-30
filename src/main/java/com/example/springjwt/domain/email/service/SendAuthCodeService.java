@@ -18,7 +18,7 @@ public class SendAuthCodeService {
     private final EmailVerificationFacade emailVerificationFacade;
     private final EmailVerificationRepository emailVerificationRepository;
 
-    private void sendAuthCode(SendEmailRequest request) {
+    public void sendAuthCode(SendEmailRequest request) {
         String email = request.getEmail();
         String authCode = makeAuthCode();
 
