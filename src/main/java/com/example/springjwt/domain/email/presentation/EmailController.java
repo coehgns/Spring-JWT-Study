@@ -21,11 +21,11 @@ public class EmailController {
 
     @PostMapping("send-authCode")
     public void sendAuthCode(@RequestBody SendEmailRequest request) {
-        sendAuthCodeService.sendAuthCode(request);
+        sendAuthCodeService.execute(request);
     }
 
     @PostMapping("/check-authCode")
     public CheckAuthCodeResponse checkAuthCode(@RequestBody CheckAuthCodeRequest request) {
-        return checkAuthCodeService.checkAuthCode(request);
+        return checkAuthCodeService.execute(request);
     }
 }

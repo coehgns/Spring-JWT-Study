@@ -13,7 +13,7 @@ public class CheckAuthCodeService {
 
     private final EmailVerificationFacade emailVerificationFacade;
 
-    public CheckAuthCodeResponse checkAuthCode(CheckAuthCodeRequest request) {
+    public CheckAuthCodeResponse execute(CheckAuthCodeRequest request) {
         EmailVerification emailVerification = emailVerificationFacade.getEmailVerificationByEmail(request.getEmail());
 
         if(emailVerification.getAuthCode().equals(request.getAuthCode())) {
