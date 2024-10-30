@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Getter
@@ -29,5 +30,12 @@ public class EmailVerification {
 
     public void verify() {
         this.isVerified = true;
+    }
+
+    public EmailVerification(String email, String authCode) {
+        this.email = email;
+        this.authCode = authCode;
+        this.isVerified = false;
+        this.createdAt = LocalDateTime.now();
     }
 }
