@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class EmailVerificationFacade {
+
     private final EmailVerificationRepository emailVerificationRepository;
 
     public EmailVerification getEmailVerificationByEmail(String email) {
