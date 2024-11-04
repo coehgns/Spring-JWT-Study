@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/board")
+@RequestMapping("/boards")
 @RequiredArgsConstructor
 public class BoardController {
 
@@ -36,7 +36,7 @@ public class BoardController {
         return boardService.selectBoard(boardId);
     }
 
-    @GetMapping("/allBoard")
+    @GetMapping
     public List<BoardResponse> selectAllBoard() {
         return boardService.selectAllBoard();
     }
