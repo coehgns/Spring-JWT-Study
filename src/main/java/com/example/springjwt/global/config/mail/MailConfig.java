@@ -1,4 +1,4 @@
-package com.example.springjwt.global.config;
+package com.example.springjwt.global.config.mail;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
