@@ -131,5 +131,4 @@ public class JwtTokenProvider {
                 .refreshExpiredAt(new Date(now.getTime() + jwtProperties.getRefreshExpiration()))
                 .build();
     }
-
 }
