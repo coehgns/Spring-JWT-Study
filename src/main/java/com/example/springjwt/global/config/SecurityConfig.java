@@ -35,13 +35,16 @@ public class SecurityConfig {
     }
 
     @Bean
-    protected SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+    protected SecurityFilterChain securityFilterChain(
+            HttpSecurity httpSecurity,
+            CorsConfigurationSource corsConfigurationSource
+    ) throws Exception {
 
         // csrf disable
         httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
 
-                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                .cors(cors -> cors.configurationSource(corsConfigurationSource))
 
                 .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin))
 
@@ -62,20 +65,5 @@ public class SecurityConfig {
                 .with(new FilterConfig(jwtTokenProvider,objectMapper), Customizer.withDefaults());
 
         return httpSecurity.build();
-    }
-
-    // cors 설정
-    @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration config = new CorsConfiguration();
-
-        config.setAllowCredentials(false);  // 쿠키 요청 여부 false
-        config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE")); // HTTP 메서드 허용
-        config.setAllowedOrigins(List.of("*"));  // 모든 출처 Origin 허용
-        config.addAllowedHeader("*");  // 모든 헤더에 응답 허용
-
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", config);
-        return source;
     }
 }
