@@ -40,10 +40,11 @@ public class SecurityConfig {
             CorsConfigurationSource corsConfigurationSource
     ) throws Exception {
 
-        // csrf disable
         httpSecurity
+                // csrf disable
                 .csrf(AbstractHttpConfigurer::disable)
 
+                // cors 설정
                 .cors(cors -> cors.configurationSource(corsConfigurationSource))
 
                 .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin))
