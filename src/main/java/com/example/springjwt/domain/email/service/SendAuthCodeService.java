@@ -26,10 +26,10 @@ public class SendAuthCodeService {
 
     private String makeAuthCode() {
         Random random = new Random();
-        String code = "";
+        StringBuilder code = new StringBuilder();
         for (int i = 0; i < 6; i++) {
-            code += (int) (random.nextDouble() * 10);
+            code.append((int) (random.nextDouble() * 10));
         }
-        return code;
+        return code.toString();
     }
 }
